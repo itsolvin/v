@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ne">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>हाम्रो यात्रा (Our Journey)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Gotu&family=Lora:ital,wght@0,400;0,600;1,400&family=Oswald:wght@300;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- GLOBAL AUDIO PLAYER -->
+    <div id="audioPlayer" class="audio-player">
+        <div class="player-info">
+            <span class="track-name">Select a memory...</span>
+            <div class="track-progress">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+        <div class="player-controls">
+            <button id="playBtn" class="control-btn" aria-label="Play">▶</button>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+        </div>
+    </div>
+
+
+
+    <!-- MAIN SPLIT CONTAINER -->
+    <main class="split-layout">
+
+        <!-- LEFT PANEL: Film Strip -->
+        <aside class="film-strip-panel" id="filmStrip">
+            <div class="film-strip-track" id="filmTrack">
+                <!-- Items injected by JS -->
+            </div>
+
+            <!-- Decorations -->
+            <div class="sprocket-holes-left"></div>
+            <div class="sprocket-holes-right"></div>
+        </aside>
+
+        <!-- RIGHT PANEL: The Stage -->
+        <section class="stage-panel" id="rightPanel">
+            <div class="stage-bg-layer" id="stageBg"></div>
+            <div class="stage-overlay"></div>
+
+            <div class="stage-content" id="stageContent">
+                <h1 class="stage-title">...</h1>
+                <p class="stage-desc">...</p>
+                <div class="stage-meta">...</div>
+                <div class="hint-text">Click to Open Memory</div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FULLSCREEN MEMORY OVERLAY -->
+    <section id="fullscreenOverlay" class="fullscreen-memory">
+        <button id="closeFsBtn" class="back-btn">← फर्किनु (Back)</button>
+
+        <div class="fs-hero">
+            <h1 class="fs-title">Title</h1>
+            <p class="fs-desc">Description</p>
+        </div>
+
+        <div class="polaroid-grid" id="polaroidGrid">
+            <!-- Polaroids injected here -->
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
