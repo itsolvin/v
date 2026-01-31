@@ -45,7 +45,7 @@ const memories = [
         title: "शान्त पल (Quiet Days)",
         date: "Winter 2026",
         desc: "केही नबोली पनि धेरै कुरा हुने पलहरू।",
-        img: "assets/Quiet.jpg",
+        img: "assets/Quiet.JPG",
         theme: { accent: "#90a4ae" },
         audio: "assets/quiet.mp3",
         polaroids: [
