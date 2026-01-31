@@ -18,7 +18,7 @@ const memories = [
         title: "मितिहरू (Dates)",
         date: "Every Sunday",
         desc: "तातो कफी र तिम्रा मीठा कुराहरू। समय नै रोकिन्थ्यो।",
-        img: "assets/Date.jpg",
+        img: "assets/Date.JPG",
         theme: { accent: "#a1887f" },
         audio: "assets/dates.mp3",
         polaroids: [
