@@ -116,7 +116,7 @@ class AudioManager {
     this.isPlaying = false;
     this.fadeInterval = null;
     this.volume = 0.5;
-    this.audio.volume = 0; // Start silent
+    this.audio.volume = 0;
 
     this.playBtn = document.getElementById("playBtn");
     this.volSlider = document.getElementById("volumeSlider");
@@ -138,7 +138,6 @@ class AudioManager {
   play(src, trackName) {
     if (src === this.currentSrc) return;
 
-    // Fade out current track
     const fadeOutInterval = setInterval(() => {
       if (this.audio.volume > 0.05) {
         this.audio.volume -= 0.1;
@@ -146,7 +145,6 @@ class AudioManager {
         clearInterval(fadeOutInterval);
         this.audio.pause();
 
-        // Switch to new track
         this.audio.src = src;
         this.currentSrc = src;
         this.audio.volume = 0;
@@ -156,7 +154,7 @@ class AudioManager {
           this.fadeIn();
         }
       }
-    }, 30); // 30ms for smooth fade
+    }, 30);
   }
 
   resume() {
@@ -181,7 +179,6 @@ class AudioManager {
   }
 
   fadeIn() {
-    // Stop any fade outs
     const fadeIn = setInterval(() => {
       if (this.audio.volume < this.volume - 0.05) {
         this.audio.volume += 0.05;
@@ -207,10 +204,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let activeMemoryId = memories[0].id;
   let isFullscreen = false;
 
-  // 0. Autoplay Policy Handling (Passive Unlock)
-  // Browsers block audio until interaction. We catch the first click anywhere to unlock.
-  // 0. Autoplay Policy Handling (Passive Unlock)
-  // Browsers block audio until interaction. We catch the first click anywhere to unlock AND start playing.
   document.addEventListener(
     "click",
     () => {
@@ -221,12 +214,9 @@ document.addEventListener("DOMContentLoaded", () => {
         audioMgr.audio.context.resume();
       }
 
-      // Auto-start on first click (because user requested "it should play when I hover")
-      // We assume the first click (even on body) signals intent to engage.
       if (!audioMgr.isPlaying) {
         audioMgr.isPlaying = true;
         audioMgr.playBtn.textContent = "⏸";
-        // Start playing whatever was queued (likely the first track)
         audioMgr.audio.play().catch((e) => console.log("Autoplay blocked"));
         audioMgr.fadeIn();
       }
@@ -234,7 +224,6 @@ document.addEventListener("DOMContentLoaded", () => {
     { once: true },
   );
 
-  // 1. Render Left Panel
   memories.forEach((mem, index) => {
     const item = document.createElement("div");
     item.className = "film-item";
@@ -248,50 +237,40 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         `;
 
-    // HOVER
     item.addEventListener("mouseenter", () => {
       if (!isFullscreen) {
         previewMemory(mem, false);
       }
     });
 
-    // CLICK
     item.addEventListener("click", () => {
       activeMemoryId = mem.id;
-      // Update Active UI
       document
         .querySelectorAll(".film-item")
         .forEach((i) => i.classList.remove("active"));
       item.classList.add("active");
 
-      // Lock content
       previewMemory(mem, true);
-
-      // Expand to Fullscreen
       openFullscreen(mem);
     });
 
     filmTrack.appendChild(item);
   });
 
-  // Initial View
   previewMemory(memories[0], true);
 
   function previewMemory(mem, isLock) {
-    // Update Stage Text
     stageContent.querySelector(".stage-title").textContent = mem.title;
     stageContent.querySelector(".stage-desc").textContent = mem.desc;
     stageContent.querySelector(".stage-meta").textContent = mem.date;
 
-    // Update Theme
     document.documentElement.style.setProperty(
       "--theme-accent",
       mem.theme.accent,
     );
 
-    // Audio Switch (trackName removed from here, now handled in play() method)
     audioMgr.play(mem.audio, mem.title);
-    // Update Image - Clear old images first to prevent lag
+
     const oldImgs = stageBg.querySelectorAll("img");
     oldImgs.forEach((img) => img.remove());
 
@@ -302,7 +281,6 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => newImg.classList.add("active"), 50);
     };
 
-    // Text Animation Logic
     stageContent.classList.remove("animate-in");
     setTimeout(() => stageContent.classList.add("animate-in"), 50);
   }
@@ -311,11 +289,9 @@ document.addEventListener("DOMContentLoaded", () => {
     isFullscreen = true;
     fullscreenOverlay.classList.add("active");
 
-    // Populate Fullscreen
     fullscreenOverlay.querySelector(".fs-title").textContent = mem.title;
     fullscreenOverlay.querySelector(".fs-desc").textContent = mem.desc;
 
-    // Generate Polaroids
     polaroidGrid.innerHTML = "";
     mem.polaroids.forEach((p, i) => {
       const card = document.createElement("div");
