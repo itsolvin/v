@@ -20,7 +20,7 @@ const memories = [
         desc: "तातो कफी र तिम्रा मीठा कुराहरू। समय नै रोकिन्थ्यो।",
         img: "assets/Date.JPG",
         theme: { accent: "#a1887f" },
-        audio: "assets/dates.mp3",
+        audio: "assets/Dates.mp3",
         polaroids: [
             { img: "https://placehold.co/400x450/8d6e63/fff?text=Latte", caption: "मन पर्ने कफी" },
             { img: "https://placehold.co/400x400/5d4037/fff?text=Laugh", caption: "तिम्रो हाँसो" }
